@@ -1,0 +1,56 @@
+<template class="task-template">
+  <div id="tray-section" class="content-item native-ui task-wrapper">
+    <header>
+      <div class="wrapper">
+        <h1>
+          <svg class="icon" viewBox="0 0 16 16"><use xlink:href="#icon-native-ui"></use></svg>
+          Tray
+        </h1>
+        <h3>The <code>tray</code> module allows you to create an icon in the operating system's notification area.</h3>
+        <p>This icon can also have a context menu attached.</p>
+
+        <p>Open the <a class="exlink" href="http://electron.atom.io/docs/latest/api/tray">full API documentation</a> in your browser.</p>
+      </div>
+    </header>
+
+    <section>
+      <div class="wrapper">
+        <button id="tray-demo-toggle" class="js-container-target toggle-button">Tray
+          <div class="support avoid-clicks">Supports: Win, OS X, Linux | Process: Main</div>
+        </button>
+        <div class="toggle-content">
+          <div class="demo">
+            <button class="demo-button" id="put-in-tray">Demo</button>
+            <span class="demo-response" id="tray-countdown"></span>
+          </div>
+          <p>The demo button sends a message to the main process using the <code>ipc</code> module. In the main process the app is told to place an icon, with a context menu, in the tray.</p>
+
+          <p>In this example the tray icon can be removed by clicking 'Remove' in the context menu or selecting the demo button again.</p>
+          <h5>Main Process</h5>
+          <pre><code id="tray-main"></pre></code>
+          <h5>Renderer Process</h5>
+          <pre><code id="tray-renderer"></pre></code>
+
+          <div class="pro-tip">
+            <h2 class="avoid-clicks">ProTip</h2>
+            <div class="non-toggle-content">
+              <strong>Tray support in Linux.</strong>
+              <p>On Linux distributions that only have app indicator support, users will need to install <code>libappindicator1</code> to make the tray icon work. See the <a class="exlink" href="http://electron.atom.io/docs/latest/api/tray">full API documentation</a> for more details about using Tray on Linux.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="text/javascript" src="renderer-process/native-ui/tray/tray.js"></script>
+
+    <script type="text/javascript">
+      var fs = require('fs');
+      // Put in Tray
+      var trayRendererContent = fs.readFileSync(__dirname + '/renderer-process/native-ui/tray/tray.js');
+      document.getElementById('tray-renderer').innerHTML= trayRendererContent;
+      var trayMainContent = fs.readFileSync(__dirname + '/main-process/native-ui/tray/tray.js');
+      document.getElementById('tray-main').innerHTML= trayMainContent;
+    </script>
+  </div><!-- end tray-section -->
+</template>
